@@ -175,7 +175,7 @@ export default {
     },
     getCoupons() {
       const vm = this;
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupons`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons`;
       this.$http.get(url, vm.tempProduct).then(response => {
         vm.coupons = response.data.coupons;
         console.log(response);
@@ -184,14 +184,14 @@ export default {
     updateCoupon() {
       const vm = this;
       if (vm.isNew) {
-        const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon`;
+        const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
         this.$http.post(url, { data: vm.tempCoupon }).then(response => {
           console.log(response, vm.tempCoupon);
           $("#couponModal").modal("hide");
           this.getCoupons();
         });
       } else {
-        const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
+        const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
         vm.due_date = new Date(vm.tempCoupon.due_date * 1000);
         this.$http.put(url, { data: vm.tempCoupon }).then(response => {
           console.log(response);

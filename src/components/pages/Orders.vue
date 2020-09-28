@@ -13,27 +13,27 @@
       </thead>
       <tbody>
         <template v-if="orders.length">
-          <!-- <tr
+          <tr
             v-for="(item, key) in sortOrder"
             :key="key"
             :class="{ 'text-secondary': !item.is_paid }"
-          > -->
-          <!-- <td>{{ item.create_at | date }}</td> -->
-          <!-- <td><span v-text="item.user.email" v-if="item.user"></span></td> -->
-          <td>
-            <ul class="list-unstyled">
-              <!-- <li v-for="(product, i) in item.products" :key="i">
+          >
+            <td>{{ item.create_at | date }}</td>
+            <td><span v-text="item.user.email" v-if="item.user"></span></td>
+            <td>
+              <ul class="list-unstyled">
+                <li v-for="(product, i) in item.products" :key="i">
                   {{ product.product.title }} 數量：{{ product.qty }}
                   {{ product.product.unit }}
-                </li> -->
-            </ul>
-          </td>
-          <!-- <td class="text-right">{{ item.total | currency }}</td> -->
-          <td>
-            <strong v-if="item.is_paid" class="text-success">已付款</strong>
-            <span v-else class="text-muted">尚未起用</span>
-          </td>
-          <!-- </tr> -->
+                </li>
+              </ul>
+            </td>
+            <td class="text-right">{{ item.total | currency }}</td>
+            <td>
+              <strong v-if="item.is_paid" class="text-success">已付款</strong>
+              <span v-else class="text-muted">尚未起用</span>
+            </td>
+          </tr>
         </template>
       </tbody>
     </table>
@@ -42,6 +42,7 @@
     <Pagination
       v-if="pagination.length"
       :pagination-data="pagination"
+      @emitPages="getOrders"
     ></Pagination>
   </div>
 </template>

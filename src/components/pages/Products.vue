@@ -44,7 +44,10 @@
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination-data="pagination"></Pagination>
+    <Pagination
+      :pagination-data="pagination"
+      @emitPages="getProducts"
+    ></Pagination>
     <!-- 新增、修改Modal -->
     <div
       class="modal fade"

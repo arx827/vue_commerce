@@ -1,41 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-// import Home from "../views/Home.vue";
-// import About from "../views/About.vue";
-
-import Dashboard from "../views/Dashboard.vue";
+import Dashboard from "@/views/Dashboard.vue";
 import Login from "@/components/pages/Login.vue";
 import Products from "@/components/pages/Products.vue";
 import Coupons from "@/components/pages/Coupons.vue";
 import Orders from "@/components/pages/Orders.vue";
 import CustomerOrder from "@/components/pages/CustomerOrders.vue";
+import CustomerCheckout from "@/components/pages/CustomerCheckout";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "*",
-    redirect: "/admin/products"
+    redirect: "login"
   },
-  // {
-  //   path: "/",
-  //   name: "Home",
-  //   component: Home,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: "/about",
-  //   name: "About",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   // component: () =>
-  //   //     import(/* webpackChunkName: "about" */ "../views/About.vue")
-  //   component: About
-  // },
   {
-    path: "/Signin",
+    path: "/Login",
     name: "Login",
     component: Login
   },
@@ -56,10 +38,6 @@ const routes = [
         component: Coupons,
         meta: { requiresAuth: true }
       },
-      // {
-      //   path: "*",
-      //   redirect: "products"
-      // },
       {
         path: "orders",
         name: "Orders",
@@ -77,12 +55,18 @@ const routes = [
         path: "customer_order",
         name: "CustomerOrder",
         component: CustomerOrder
+      },
+      {
+        path: "customer_checkout/:orderId",
+        name: "CustomerCheckout",
+        component: CustomerCheckout
       }
     ]
   }
 ];
 
 const router = new VueRouter({
+  linkActiveClass: "active",
   routes
 });
 
