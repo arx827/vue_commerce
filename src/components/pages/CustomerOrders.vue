@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <Loading :active.sync="isLoading"></Loading>
     <div class="row mt-4">
       <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
         <div class="card border-0 shadow-sm">
@@ -79,7 +79,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <img :src="product.image" class="img-fluid" alt="" />
+            <img :src="product.imageUrl" class="img-fluid" alt="" />
             <blockquote class="blockquote mt-3">
               <p class="mb-0">{{ product.content }}</p>
               <footer class="blockquote-footer text-right">
@@ -188,7 +188,7 @@
     </div>
     <div class="my-5 row justify-content-center">
       <form class="col-md-6" @submit.prevent="createOrder">
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="useremail">Email</label>
           <input
             type="email"
@@ -203,9 +203,9 @@
           <span class="text-danger" v-if="errors.has('email')">
             {{ errors.first("email") }}
           </span>
-        </div> -->
+        </div>
 
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="username">收件人姓名</label>
           <input
             type="text"
@@ -220,9 +220,9 @@
           <span class="text-danger" v-if="errors.has('name')"
             >姓名必須輸入</span
           >
-        </div> -->
+        </div>
 
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="usertel">收件人電話</label>
           <input
             type="tel"
@@ -231,9 +231,9 @@
             v-model="form.user.tel"
             placeholder="請輸入電話"
           />
-        </div> -->
+        </div>
 
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="useraddress">收件人地址</label>
           <input
             type="address"
@@ -248,9 +248,9 @@
           <span class="text-danger" v-if="errors.has('address')"
             >地址欄位不得留空</span
           >
-        </div> -->
+        </div>
 
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="useraddress">留言</label>
           <textarea
             name=""
@@ -260,7 +260,7 @@
             rows="10"
             v-model="form.message"
           ></textarea>
-        </div> -->
+        </div>
         <div class="text-right">
           <button class="btn btn-danger">送出訂單</button>
         </div>
@@ -366,7 +366,7 @@ export default {
       const vm = this;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
       const order = vm.form;
-      // vm.isLoading = true;
+      vm.isLoading = true;
       this.$validator.validate().then(result => {
         if (result) {
           this.$http.post(url, { data: order }).then(response => {
@@ -374,7 +374,7 @@ export default {
             if (response.data.success) {
               vm.$router.push(`/customer_checkout/${response.data.orderId}`);
             }
-            // vm.getCart();
+            vm.getCart();
             vm.isLoading = false;
           });
         } else {

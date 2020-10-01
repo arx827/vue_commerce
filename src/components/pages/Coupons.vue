@@ -148,7 +148,8 @@ export default {
         code: ""
       },
       due_date: new Date(),
-      isNew: false
+      isNew: false,
+      isLoading: false
     };
   },
   watch: {
@@ -175,10 +176,12 @@ export default {
     },
     getCoupons() {
       const vm = this;
+      vm.isLoading = true;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons`;
       this.$http.get(url, vm.tempProduct).then(response => {
         vm.coupons = response.data.coupons;
         console.log(response);
+        vm.isLoading = false;
       });
     },
     updateCoupon() {

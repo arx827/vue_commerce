@@ -1,12 +1,12 @@
 <template>
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <li class="page-item" :class="{ disabled: !pages.has_pre }">
+      <li class="page-item" :class="{ disabled: !paginationData.has_pre }">
         <a
           class="page-link"
           href="#"
           aria-label="Previous"
-          @click.prevent="updatePage(pages.current_page - 1)"
+          @click.prevent="updatePage(paginationData.current_page - 1)"
         >
           <span aria-hidden="true">&laquo;</span>
           <span class="sr-only">Previous</span>
@@ -14,17 +14,17 @@
       </li>
       <li
         class="page-item"
-        v-for="page in pages.total_pages"
+        v-for="page in paginationData.total_pages"
         :key="page"
-        :class="{ active: pages.current_page == page }"
+        :class="{ active: paginationData.current_page == page }"
         @click.prevent="updatePage(page)"
       >
         <a class="page-link" href="#">{{ page }}</a>
       </li>
       <li
         class="page-item"
-        :class="{ disabled: !pages.has_next }"
-        @click.prevent="updatePage(pages.current_page + 1)"
+        :class="{ disabled: !paginationData.has_next }"
+        @click.prevent="updatePage(paginationData.current_page + 1, $event)"
       >
         <a class="page-link" href="#" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
@@ -40,10 +40,12 @@
 // @emitPages="更新頁面事件"
 export default {
   name: "pagination",
-  props: ["pages"],
+  props: ["paginationData"],
   methods: {
-    updatePage(page) {
-      this.$emit("emitPages", page);
+    updatePage(paginationData, $event) {
+      if (!$event.target.className.includes("disabled")) {
+        this.$emit("emitPages", paginationData);
+      }
     }
   }
 };

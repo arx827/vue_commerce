@@ -5,7 +5,8 @@ import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 import "bootstrap";
 import VeeValidate from "vee-validate";
-import zhTWValidate from "vee-validate/dist/locale/zh_TW";
+import zhTW from "vee-validate/dist/locale/zh_TW";
+import VueI18n from "vue-i18n";
 
 import App from "@/App.vue";
 import router from "@/router";
@@ -19,8 +20,17 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 axios.defaults.withCredentials = true;
 
-VeeValidate.Validator.localize("zh_TW", zhTWValidate);
-Vue.use(VeeValidate);
+// Validator.localize("zh_TW", zhTWValidate);
+Vue.use(VueI18n);
+const i18n = new VueI18n({
+  locale: "zhTW"
+});
+Vue.use(VeeValidate, {
+  i18n,
+  dictionary: {
+    zhTW
+  }
+});
 
 Vue.component("Loading", Loading);
 Vue.filter("currency", currencyFilter);
@@ -29,6 +39,7 @@ Vue.filter("date", dateFilter);
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount("#app");
 

@@ -7,7 +7,7 @@ import Products from "@/components/pages/Products.vue";
 import Coupons from "@/components/pages/Coupons.vue";
 import Orders from "@/components/pages/Orders.vue";
 import CustomerOrder from "@/components/pages/CustomerOrders.vue";
-import CustomerCheckout from "@/components/pages/CustomerCheckout";
+import CustomerCheckout from "@/components/pages/CustomerCheckout.vue";
 
 Vue.use(VueRouter);
 
@@ -48,7 +48,7 @@ const routes = [
   },
   {
     path: "/",
-    name: "Dashboard",
+    // name: "Dashboard",
     component: Dashboard,
     children: [
       {
